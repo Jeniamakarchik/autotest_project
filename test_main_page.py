@@ -6,21 +6,20 @@ from .pages.basket_page import BasketPage
 from .pages.product_page import ProductPage
 
 
+@pytest.mark.login_guest
 @pytest.mark.parametrize('link', ['http://selenium1py.pythonanywhere.com'])
-def test_guest_can_go_to_login_page(browser, link):
-    page = MainPage(browser, link)
-    page.open_page()
-    page.go_to_login_page()
+class TestLoginFromMainPage:
+    def test_guest_can_go_to_login_page(self, browser, link):
+        page = MainPage(browser, link)
+        page.open_page()
+        page.go_to_login_page()
+
+    def test_guest_should_see_login_link(self, browser, link):
+        page = MainPage(browser, link)
+        page.open_page()
+        page.should_be_login_link()
 
 
-@pytest.mark.parametrize('link', ['http://selenium1py.pythonanywhere.com'])
-def test_guest_should_see_login_link(browser, link):
-    page = MainPage(browser, link)
-    page.open_page()
-    page.should_be_login_link()
-
-
-@pytest.mark.parametrize('link', ['http://selenium1py.pythonanywhere.com'])
 def test_there_is_login_page(browser, link):
     main_page = MainPage(browser, link)
     main_page.open_page()
